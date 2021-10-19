@@ -5,13 +5,16 @@
 </template>
 
 <script>
-import Calculator from './components/Calculator.vue';
+import Calculator from "./components/Calculator.vue";
 
 export default {
   name: "App",
-  components: {Calculator},
+  components: { Calculator },
 };
 </script>
 
-<s
-    Calculatortyle></style>
+<style>
+body {
+  background: #31475e;
+}
+</style>

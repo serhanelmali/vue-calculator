@@ -13,6 +13,7 @@
           :class="{
             'bg-vue-green': ['C', '*', '/', '-', '+', '%', '='].includes(n),
           }"
+          @click="action(n)"
         >
           {{ n }}
         </div>
@@ -51,7 +52,42 @@ export default {
         0,
         ".",
       ],
+      operator: null,
+      previousCalculatorValue: "",
     };
+  },
+
+  methods: {
+    action(n) {
+      /* Append value */
+      if (!isNaN(n) || n === ".") {
+        this.calculatorValue += n + "";
+      }
+
+      /* Clear value */
+      if (n === "C") {
+        this.calculatorValue = "";
+      }
+
+      /* Percentage */
+      if (n === "%") {
+        this.calculatorValue = this.calculatorValue / 100 + "";
+      }
+
+      if (["/", "*", "-", "+"].includes(n)) {
+        this.operator = n;
+        this.previousCalculatorValue = this.calculatorValue;
+        this.calculatorValue = "";
+      }
+
+      if (n === "=") {
+        this.calculatorValue = eval(
+          this.previousCalculatorValue + this.operator + this.calculatorValue
+        );
+
+        (this.previousCalculatorValue = ""), (this.operator = null);
+      }
+    },
   },
 };
 </script>
